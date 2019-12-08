@@ -1,0 +1,7 @@
+{
+  "name": "firestore-toolbox",
+  "version": "0.0.1",
+  "dependencies": {
+    "firebase-admin": "^8.8.0"
+  }
+}
