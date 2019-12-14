@@ -26,7 +26,7 @@ let firestore = {}
 exports.setFirebaseConfig = serviceAccountFile => {
   firestore = firebase.initializeApp({
     credential: firebase.credential.cert(serviceAccountFile)
-  }, 'firestore-management-tools-instance').firestore()
+  }, 'firestore-toolbox-instance').firestore()
 }
 
 /**
@@ -90,4 +90,32 @@ exports.deleteDocumentsFromCollection = (collectionName, idList) => {
   return Promise.all(idList.map(documentID => {
     return firestore.collection(collectionName).doc(documentID + '').delete()
   }))
+}
+
+/**
+ * Renames a collection by running through the current collection, copying all documents
+ * to a collection given the new name, and deleting all the documents from the old
+ * collection that where successfully copied to the new collection.
+ *
+ * @param {String} currentName
+ * @param {String} newName
+ * @returns {Promise<[]>} Promise that resolves with a String-array of all docIDs moved.
+ */
+exports.renameCollection = (currentName, newName) => {
+  const docIDs = []
+
+  return firestore.collection(currentName).get()
+    .then(snapshot => {
+      return Promise.all(snapshot.docs.map(doc => {
+        return firestore.collection(newName).doc(doc.id + '').set(doc.data())
+          .then(() => docIDs.push(doc.id))
+          .catch(e => console.error(e))
+      }))
+    })
+    .then(() => {
+      return Promise.all(docIDs.map(docID => {
+        return firestore.collection(req.params.collection).doc(docID + '').delete()
+      }))
+    })
+    .then(() => docIDs)
 }
