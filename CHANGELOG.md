@@ -1,3 +1,9 @@
+## <small>0.0.4 (2019-12-14)</small>
+
+* Corrected NPM config. ([a2546af](https://github.com/Learnlink/firestore-toolbox/commit/a2546af))
+
+
+
 ## <small>0.0.3 (2019-12-14)</small>
 
 * Added function that lets you rename a Firestore collection. ([c16c6a3](https://github.com/Learnlink/firestore-toolbox/commit/c16c6a3))
