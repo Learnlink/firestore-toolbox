@@ -1,11 +1,16 @@
 {
   "name": "@learnlink/firestore-toolbox",
   "version": "0.0.4",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "dependencies": {
-    "firebase-admin": "^8.8.0"
+    "firebase-admin": "^8.13.0",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.0.3"
   },
   "description": "NPM package for easier cleaning and management of Firestore data. Backup, copy, convert, migrate, sort and move data between different accounts.",
-  "main": "index.js",
+  "main": "index.ts",
   "devDependencies": {},
   "repository": {
     "type": "git",
@@ -15,7 +20,7 @@
     "Firestore",
     "Toolbox"
   ],
-  "author": "Learnlink - Johannes Berggren",
+  "author": "Learnlink",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Learnlink/firestore-toolbox/issues"
