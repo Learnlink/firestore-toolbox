@@ -1,3 +1,9 @@
+## 1.0.0 (2020-09-27)
+
+* Switched to TypeScript. ([13a1930](https://github.com/Learnlink/firestore-toolbox/commit/13a1930))
+
+
+
 ## <small>0.0.4 (2019-12-14)</small>
 
 * Corrected NPM config. ([a2546af](https://github.com/Learnlink/firestore-toolbox/commit/a2546af))

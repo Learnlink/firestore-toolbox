@@ -1,6 +1,6 @@
 {
   "name": "@learnlink/firestore-toolbox",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
