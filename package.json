@@ -1,11 +1,8 @@
 {
   "name": "@learnlink/firestore-toolbox",
   "version": "1.0.1",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "dependencies": {
-    "firebase-admin": "^8.13.0",
+    "firebase-admin": "^9.2.0",
     "source-map-support": "^0.5.19",
     "typescript": "^4.0.3"
   },
@@ -25,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Learnlink/firestore-toolbox/issues"
   },
-  "homepage": "https://github.com/Learnlink/firestore-toolbox#readme"
+  "homepage": "https://github.com/Learnlink/firestore-toolbox#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
