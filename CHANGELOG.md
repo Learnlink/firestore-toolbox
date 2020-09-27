@@ -1,3 +1,9 @@
+## <small>1.0.2 (2020-09-27)</small>
+
+* Updated Firebase admin dependency. ([0ddc4b7](https://github.com/Learnlink/firestore-toolbox/commit/0ddc4b7))
+
+
+
 ## 1.0.0 (2020-09-27)
 
 * Switched to TypeScript. ([13a1930](https://github.com/Learnlink/firestore-toolbox/commit/13a1930))
