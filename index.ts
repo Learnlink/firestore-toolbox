@@ -8,7 +8,7 @@
 
 "use strict";
 
-import * as admin from "firebase-admin";
+import { firestore } from "firebase-admin";
 
 /**
  * Lets you specify a collection, a property name and a value,
@@ -20,7 +20,7 @@ import * as admin from "firebase-admin";
  * @returns {Promise<Object[]>} Array containing all the responses from Firestore.
  */
 export async function addPropertyToAllDocumentsInCollection(
-    firestoreInstance: admin.firestore.Firestore,
+    firestoreInstance: firestore.Firestore,
     collectionName: string,
     propertyName: string,
     propertyValue: object | string | number,
@@ -51,7 +51,7 @@ export async function addPropertyToAllDocumentsInCollection(
  * @returns {Promise<Object[]>} Array containing all the responses from Firestore.
  */
 export async function convertPropertyFromNumberToString(
-    firestoreInstance: admin.firestore.Firestore,
+    firestoreInstance: firestore.Firestore,
     collectionName: string,
     propertyName: string,
 ) {
@@ -79,7 +79,7 @@ export async function convertPropertyFromNumberToString(
  * @returns {Promise<Object[]>} Array containing all the responses from Firestore.
  */
 export async function deleteDocumentsFromCollection(
-    firestoreInstance: admin.firestore.Firestore,
+    firestoreInstance: firestore.Firestore,
     collectionName: string,
     idList: string[],
 ) {
@@ -93,7 +93,7 @@ export async function deleteDocumentsFromCollection(
 };
 
 export async function deletePropFromAllDocumentsInCollection(
-    firestoreInstance: admin.firestore.Firestore,
+    firestoreInstance: firestore.Firestore,
     collectionName: string,
     propertyName: string,
 ): Promise<string[]> {
@@ -102,7 +102,7 @@ export async function deletePropFromAllDocumentsInCollection(
 
   await Promise.all(collectionSnapshot.docs.map(async (doc) => {
     const updateObject: any = {};
-    updateObject[propertyName] = admin.firestore.FieldValue.delete();
+    updateObject[propertyName] = firestore.FieldValue.delete();
     updated.push(doc.id);
     return firestoreInstance.collection(collectionName).doc(doc.id + "").update(updateObject);
   }));
@@ -111,7 +111,7 @@ export async function deletePropFromAllDocumentsInCollection(
 };
 
 export async function replaceValuesForAllDocumentsWhere(
-    firestoreInstance: admin.firestore.Firestore,
+    firestoreInstance: firestore.Firestore,
     collectionName: string,
     propertyName: string,
     comparison: "<" | "<=" | "==" | ">=" | ">" | "array-contains" | "in" | "array-contains-any",
@@ -149,7 +149,7 @@ export async function replaceValuesForAllDocumentsWhere(
  * @returns {Promise<[]>} Promise that resolves with a string-array of all docIDs moved.
  */
 export async function renameCollection(
-    firestoreInstance: admin.firestore.Firestore,
+    firestoreInstance: firestore.Firestore,
     currentName: string, newName: string,
 ) {
   const collectionSnapshot = await firestoreInstance.collection(currentName).get();
