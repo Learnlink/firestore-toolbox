@@ -1,3 +1,9 @@
+## <small>1.0.4 (2020-09-30)</small>
+
+* Fixed TS config. ([584aded](https://github.com/Learnlink/firestore-toolbox/commit/584aded))
+
+
+
 ## <small>1.0.3 (2020-09-30)</small>
 
 * Fixed import. ([c91ee42](https://github.com/Learnlink/firestore-toolbox/commit/c91ee42))
