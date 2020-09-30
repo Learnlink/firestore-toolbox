@@ -1,3 +1,9 @@
+## <small>1.0.3 (2020-09-30)</small>
+
+* Fixed import. ([c91ee42](https://github.com/Learnlink/firestore-toolbox/commit/c91ee42))
+
+
+
 ## <small>1.0.2 (2020-09-27)</small>
 
 * Updated Firebase admin dependency. ([0ddc4b7](https://github.com/Learnlink/firestore-toolbox/commit/0ddc4b7))

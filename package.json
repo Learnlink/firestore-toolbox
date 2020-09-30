@@ -1,6 +1,6 @@
 {
   "name": "@learnlink/firestore-toolbox",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "dependencies": {
     "firebase-admin": "^9.2.0",
     "source-map-support": "^0.5.19",
