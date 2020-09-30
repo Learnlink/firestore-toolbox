@@ -5,7 +5,9 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "sourceMap": true,
-    "allowJs": false
+    "allowJs": false,
+    "declaration": true,
+    "outDir": "dist"
   },
   "include": [
     "./*.ts"
