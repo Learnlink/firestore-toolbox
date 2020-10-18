@@ -1,3 +1,10 @@
+## 1.1.0 (2020-10-18)
+
+* ✨Replace types of document fields ([71ba364](https://github.com/Learnlink/firestore-toolbox/commit/71ba364))
+* Removed unused function. ([ca2bc9e](https://github.com/Learnlink/firestore-toolbox/commit/ca2bc9e))
+
+
+
 ## <small>1.0.4 (2020-09-30)</small>
 
 * Fixed TS config. ([584aded](https://github.com/Learnlink/firestore-toolbox/commit/584aded))
