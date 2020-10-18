@@ -43,6 +43,43 @@ export async function addPropertyToAllDocumentsInCollection(
 };
 
 /**
+ * Convert the type of a specific field with a specific type to a new type.
+ * Also possible to pass in a new Initial value to initate the new type in the field
+ * If unspecified it will set the new value of the field to be the "empty" equivalent (e.g "" for strings and 0 for number types)
+ * @param firestoreInstance
+ * @param collectionName
+ * @param propertyName
+ * @param fromType
+ * @param toType
+ * @param newInitialValue
+ */
+export async function convertPropertyType(
+    firestoreInstance: firestore.Firestore,
+    collectionName: string,
+    propertyName: string,
+    fromType: string,
+    toType: string,
+    newInitialValue?: any
+): Promise<string[]>{
+  const collectionSnapshot = await firestoreInstance.collection(collectionName).get();
+
+  const updated = [];
+
+  await Promise.all(collectionSnapshot.docs.map(doc => {
+    const ID = doc.id,
+        data = doc.data();
+    if (getType(data[propertyName]) === fromType) {
+      if (newInitialValue) data[propertyName] = newInitialValue;
+      else data[propertyName] = getInitialValue(toType)
+      updated.push(ID)
+      return firestoreInstance.collection(collectionName).doc(ID).update(data);
+    }
+  }));
+
+  return updated;
+}
+
+/**
  * Takes in a collectionName and a propertyName, and converts all the corresponding values
  * from number to string.
  *
@@ -164,3 +201,45 @@ export async function renameCollection(
     }
   });
 };
+
+/**
+ * Returns an initatorvalue for a field based on type input.
+ * @param type
+ */
+function getInitialValue(type: string) {
+  if (type === "string") return "";
+  else if (type === "number") return 0;
+  else if (type === "boolean") return false;
+  else if (type === "array") return [];
+  else if (type === "object") return {};
+
+  const errorMessage = "Cannot init value of type " + type;
+  throw new Error(errorMessage);
+};
+
+function getType(val) {
+  if (val === null) {
+    return "null";
+  }
+  else if (typeof val === "undefined") {
+    return "undefined";
+  }
+  else if (typeof val === "string") {
+    return "string";
+  }
+  else if (typeof val === "number" && !isNaN(val)) {
+    if (Number.isInteger(val)) {
+      return "integer";
+    }
+    return "float";
+  }
+  else if (typeof val === "boolean") {
+    return "boolean";
+  }
+  else if (Array.isArray(val)) {
+    return "array";
+  }
+  else if (typeof val === "object" && Object.keys(val).length) {
+    return "object";
+  }
+}
