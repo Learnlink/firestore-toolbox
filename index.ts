@@ -80,36 +80,6 @@ export async function convertPropertyType(
 }
 
 /**
- * Takes in a collectionName and a propertyName, and converts all the corresponding values
- * from number to string.
- *
- * @param {string} collectionName
- * @param {string} propertyName
- * @returns {Promise<Object[]>} Array containing all the responses from Firestore.
- */
-export async function convertPropertyFromNumberToString(
-    firestoreInstance: firestore.Firestore,
-    collectionName: string,
-    propertyName: string,
-) {
-  const collectionSnapshot = await firestoreInstance.collection(collectionName).get();
-
-  return Promise.all(collectionSnapshot.docs.map(d => {
-    const ID = d.id,
-        data = d.data();
-
-    if (data[propertyName] === 0 || data[propertyName] === "0") {
-      data[propertyName] = "";
-    }
-    else if (typeof data[propertyName] === "number") {
-      data[propertyName] = data[propertyName] + "";
-    }
-
-    return firestoreInstance.collection(collectionName).doc(ID).update(data);
-  }));
-};
-
-/**
  *
  * @param {string} collectionName
  * @param {Array} idList
