@@ -1,6 +1,11 @@
+## <small>1.1.2 (2020-11-30)</small>
+
+* Corrected tsconfig. ([cd51ac2](https://github.com/Learnlink/firestore-toolbox/commit/cd51ac2))
+
+
+
 ## <small>1.1.1 (2020-11-30)</small>
 
-* ✨Replace types of document fields ([71ba364](https://github.com/Learnlink/firestore-toolbox/commit/71ba364))
 * 🎨 Corrected update object ([30ada66](https://github.com/Learnlink/firestore-toolbox/commit/30ada66))
 * Formatted index.ts. ([5c74fe7](https://github.com/Learnlink/firestore-toolbox/commit/5c74fe7))
 
