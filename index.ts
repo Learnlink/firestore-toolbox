@@ -1,7 +1,7 @@
 /*
  * firestore-toolbox
  *
- * Copyright © 2019-2020 Johannes Berggren <jb@learnlink.no>
+ * Copyright © 2019-2020 Learnlink AS <engineering@learnlink.no>
  * MIT Licensed
  *
  */
@@ -59,8 +59,8 @@ export async function convertPropertyType(
     propertyName: string,
     fromType: string,
     toType: string,
-    newInitialValue?: any
-): Promise<string[]>{
+    newInitialValue?: any,
+): Promise<string[]> {
   const collectionSnapshot = await firestoreInstance.collection(collectionName).get();
 
   const updated = [];
@@ -69,9 +69,13 @@ export async function convertPropertyType(
     const ID = doc.id,
         data = doc.data();
     if (getType(data[propertyName]) === fromType) {
-      if (newInitialValue) data[propertyName] = newInitialValue;
-      else data[propertyName] = getInitialValue(toType)
-      updated.push(ID)
+      if (newInitialValue) {
+        data[propertyName] = newInitialValue;
+      }
+      else {
+        data[propertyName] = getInitialValue(toType);
+      }
+      updated.push(ID);
       return firestoreInstance.collection(collectionName).doc(ID).update(data);
     }
   }));
@@ -177,11 +181,21 @@ export async function renameCollection(
  * @param type
  */
 function getInitialValue(type: string) {
-  if (type === "string") return "";
-  else if (type === "number") return 0;
-  else if (type === "boolean") return false;
-  else if (type === "array") return [];
-  else if (type === "object") return {};
+  if (type === "string") {
+    return "";
+  }
+  else if (type === "number") {
+    return 0;
+  }
+  else if (type === "boolean") {
+    return false;
+  }
+  else if (type === "array") {
+    return [];
+  }
+  else if (type === "object") {
+    return {};
+  }
 
   const errorMessage = "Cannot init value of type " + type;
   throw new Error(errorMessage);
