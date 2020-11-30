@@ -1,3 +1,11 @@
+## <small>1.1.1 (2020-11-30)</small>
+
+* ✨Replace types of document fields ([71ba364](https://github.com/Learnlink/firestore-toolbox/commit/71ba364))
+* 🎨 Corrected update object ([30ada66](https://github.com/Learnlink/firestore-toolbox/commit/30ada66))
+* Formatted index.ts. ([5c74fe7](https://github.com/Learnlink/firestore-toolbox/commit/5c74fe7))
+
+
+
 ## 1.1.0 (2020-10-18)
 
 * ✨Replace types of document fields ([71ba364](https://github.com/Learnlink/firestore-toolbox/commit/71ba364))
