@@ -35,7 +35,7 @@ export async function addPropertyToAllDocumentsInCollection(
       const updateObject = {};
       updateObject[propertyName] = propertyValue;
       updated.push(documentSnapshot.id);
-      return firestoreInstance.collection(collectionName).doc(documentSnapshot.id).update(document);
+      return firestoreInstance.collection(collectionName).doc(documentSnapshot.id).update(updateObject);
     }
   }));
 
