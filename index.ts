@@ -1,7 +1,7 @@
 /*
  * firestore-toolbox
  *
- * Copyright © 2019-2020 Learnlink AS <engineering@learnlink.no>
+ * Copyright © 2019-2021 Learnlink AS <engineering@learnlink.no>
  * MIT Licensed
  *
  */
@@ -9,6 +9,8 @@
 "use strict";
 
 import { firestore } from "firebase-admin";
+
+type Type = "string" | "number" | "boolean" | "array" | "object";
 
 /**
  * Lets you specify a collection, a property name and a value,
@@ -57,8 +59,8 @@ export async function convertPropertyType(
     firestoreInstance: firestore.Firestore,
     collectionName: string,
     propertyName: string,
-    fromType: string,
-    toType: string,
+    fromType: Type,
+    toType: Type,
     newInitialValue?: any,
 ): Promise<string[]> {
   const collectionSnapshot = await firestoreInstance.collection(collectionName).get();
@@ -84,7 +86,6 @@ export async function convertPropertyType(
 }
 
 /**
- *
  * @param {string} collectionName
  * @param {Array} idList
  * @returns {Promise<Object[]>} Array containing all the responses from Firestore.
@@ -201,7 +202,7 @@ function getInitialValue(type: string) {
   throw new Error(errorMessage);
 };
 
-function getType(val) {
+function getType(val: unknown) {
   if (val === null) {
     return "null";
   }
