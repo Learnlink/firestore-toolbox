@@ -1,3 +1,9 @@
+## 1.2.0 (2021-07-15)
+
+* Type convertPropertyType params. Bump deps. ([a95401a](https://github.com/Learnlink/firestore-toolbox/commit/a95401a))
+
+
+
 ## <small>1.1.2 (2020-11-30)</small>
 
 * Corrected tsconfig. ([cd51ac2](https://github.com/Learnlink/firestore-toolbox/commit/cd51ac2))
