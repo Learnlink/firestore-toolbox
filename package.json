@@ -2,6 +2,9 @@
   "name": "@learnlink/firestore-toolbox",
   "version": "1.2.0",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^7.31.0",
     "firebase-admin": "^9.10.0",
     "source-map-support": "^0.5.19",
     "typescript": "^4.3.5"
@@ -9,7 +12,6 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "description": "NPM package for easier cleaning and management of Firestore data. Backup, copy, convert, migrate, sort and move data between different accounts.",
-  "devDependencies": {},
   "prepublish": "tsc",
   "repository": {
     "type": "git",
@@ -26,6 +28,8 @@
   },
   "homepage": "https://github.com/Learnlink/firestore-toolbox#readme",
   "scripts": {
+    "lint": "eslint *.ts --ext .ts",
+    "fix": "eslint *.ts --ext .ts --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
