@@ -1,3 +1,10 @@
+## 1.3.0 (2021-07-29)
+
+* Install eslint. ([92dafa8](https://github.com/Learnlink/firestore-toolbox/commit/92dafa8))
+* Update types. ([fd14886](https://github.com/Learnlink/firestore-toolbox/commit/fd14886))
+
+
+
 ## 1.2.0 (2021-07-15)
 
 * Type convertPropertyType params. Bump deps. ([a95401a](https://github.com/Learnlink/firestore-toolbox/commit/a95401a))
