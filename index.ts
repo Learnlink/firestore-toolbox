@@ -22,10 +22,10 @@ type Type = "string" | "number" | "boolean" | "array" | "object";
  * @returns {Promise<Object[]>} Array containing all the responses from Firestore.
  */
 export async function addPropertyToAllDocumentsInCollection(
-    firestoreInstance: firestore.Firestore,
-    collectionName: string,
-    propertyName: string,
-    propertyValue: object | string | number,
+  firestoreInstance: firestore.Firestore,
+  collectionName: string,
+  propertyName: string,
+  propertyValue: Record<string, unknown> | string | number,
 ): Promise<string[]> {
   const updated: string[] = [];
   const collectionSnapshot = await firestoreInstance.collection(collectionName).get();
@@ -42,7 +42,7 @@ export async function addPropertyToAllDocumentsInCollection(
   }));
 
   return updated;
-};
+}
 
 /**
  * Convert the type of a specific field with a specific type to a new type.
@@ -56,20 +56,20 @@ export async function addPropertyToAllDocumentsInCollection(
  * @param newInitialValue
  */
 export async function convertPropertyType(
-    firestoreInstance: firestore.Firestore,
-    collectionName: string,
-    propertyName: string,
-    fromType: Type,
-    toType: Type,
-    newInitialValue?: any,
+  firestoreInstance: firestore.Firestore,
+  collectionName: string,
+  propertyName: string,
+  fromType: Type,
+  toType: Type,
+  newInitialValue?: unknown,
 ): Promise<string[]> {
   const collectionSnapshot = await firestoreInstance.collection(collectionName).get();
 
-  const updated = [];
+  const updated: string[] = [];
 
   await Promise.all(collectionSnapshot.docs.map(doc => {
     const ID = doc.id,
-        data = doc.data();
+      data = doc.data();
     if (getType(data[propertyName]) === fromType) {
       if (newInitialValue) {
         data[propertyName] = newInitialValue;
@@ -91,9 +91,9 @@ export async function convertPropertyType(
  * @returns {Promise<Object[]>} Array containing all the responses from Firestore.
  */
 export async function deleteDocumentsFromCollection(
-    firestoreInstance: firestore.Firestore,
-    collectionName: string,
-    idList: string[],
+  firestoreInstance: firestore.Firestore,
+  collectionName: string,
+  idList: string[],
 ) {
   if (!Array.isArray(idList)) {
     throw new Error("Parameter idList must be array of strings.");
@@ -102,54 +102,60 @@ export async function deleteDocumentsFromCollection(
   return Promise.all(idList.map(documentID => {
     return firestoreInstance.collection(collectionName).doc(documentID + "").delete();
   }));
-};
+}
 
 export async function deletePropFromAllDocumentsInCollection(
-    firestoreInstance: firestore.Firestore,
-    collectionName: string,
-    propertyName: string,
+  firestoreInstance: firestore.Firestore,
+  collectionName: string,
+  propertyName: string,
 ): Promise<string[]> {
   const collectionSnapshot = await firestoreInstance.collection(collectionName).get();
   const updated: string[] = [];
 
   await Promise.all(collectionSnapshot.docs.map(async (doc) => {
-    const updateObject: any = {};
+    const updateObject = {};
     updateObject[propertyName] = firestore.FieldValue.delete();
     updated.push(doc.id);
     return firestoreInstance.collection(collectionName).doc(doc.id + "").update(updateObject);
   }));
 
   return updated;
-};
+}
 
 export async function replaceValuesForAllDocumentsWhere(
-    firestoreInstance: firestore.Firestore,
-    collectionName: string,
-    propertyName: string,
-    comparison: "<" | "<=" | "==" | ">=" | ">" | "array-contains" | "in" | "array-contains-any",
-    equalTo: string | number,
-    newValue: string | number,
-) {
-  const updated = [];
+  firestoreInstance: firestore.Firestore,
+  collectionName: string,
+  propertyName: string,
+  comparison: FirebaseFirestore.WhereFilterOp,
+  equalTo: string | number,
+  newValue: string | number,
+): Promise<string[]> {
+  const updated: string[] = [];
 
-  const documentSnapshot = await firestoreInstance.collection(collectionName).where(propertyName, comparison, equalTo).get();
+  const documentSnapshots = await firestoreInstance
+    .collection(collectionName)
+    .where(propertyName, comparison, equalTo)
+    .get();
 
-  console.log("Snapshot size " + documentSnapshot.size);
+  console.log("Snapshot size " + documentSnapshots.size);
 
-  await Promise.all(documentSnapshot.docs.map((doc) => {
+  await Promise.all(documentSnapshots.docs.map((doc) => {
     const documentID = doc.id;
     const documentData = doc.data();
 
     documentData[propertyName] = newValue;
     updated.push(documentID);
 
-    return firestoreInstance.collection(collectionName).doc(documentID).update(documentData);
+    return firestoreInstance
+      .collection(collectionName)
+      .doc(documentID)
+      .update(documentData);
   }));
 
   console.log("Updated " + updated.length + " documents.");
 
   return updated;
-};
+}
 
 /**
  * Renames a collection by running through the current collection, copying all documents
@@ -161,9 +167,9 @@ export async function replaceValuesForAllDocumentsWhere(
  * @returns {Promise<[]>} Promise that resolves with a string-array of all docIDs moved.
  */
 export async function renameCollection(
-    firestoreInstance: firestore.Firestore,
-    currentName: string, newName: string,
-) {
+  firestoreInstance: firestore.Firestore,
+  currentName: string, newName: string,
+): Promise<void> {
   const collectionSnapshot = await firestoreInstance.collection(currentName).get();
 
   collectionSnapshot.docs.map(async doc => {
@@ -175,7 +181,7 @@ export async function renameCollection(
       console.error(e);
     }
   });
-};
+}
 
 /**
  * Returns an initatorvalue for a field based on type input.
@@ -200,7 +206,7 @@ function getInitialValue(type: string) {
 
   const errorMessage = "Cannot init value of type " + type;
   throw new Error(errorMessage);
-};
+}
 
 function getType(val: unknown) {
   if (val === null) {
